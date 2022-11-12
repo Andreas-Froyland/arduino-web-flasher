@@ -1,7 +1,21 @@
-# Vue 3 + Vite
+# React Web Serial Demo of AvrGirl Arduino
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This directory contains a simple example of how to use Avrgirl Arduino with React.
 
-## Recommended IDE Setup
+## How to navigate this example
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+This React project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Most of the functionality is contained within `/src/App.js`. This example uses the UMD AvrGirl Arduino library distribution which allows it to be imported and bundled.
+
+## How to run this example
+
+The fastest way to run this example is to git clone this repository and run the app locally.
+
+1. Install NodeJS
+2. In your terminal, run `git clone https://github.com/noopkat/avrgirl-arduino`
+3. Run `cd avrgirl-arduino/tests/demos/webserial/react-demo`
+4. Run `npm install`
+5. Run `npm start`. Open `http://localhost:3000` in Chrome to play with the app.
+
+## Caveats
+
+The Web Serial API is currently in development and is only available behind a flag on the stable branch of Chrome. Please enable the `#enable-experimental-web-platform-features` flag in `chrome://flags` to run this example.
