@@ -57,6 +57,11 @@ function App() {
     updateUploadStatusMsg("")
   }
 
+  const clearFileInput = () => {
+    updateFileName("");
+    if(fileInput) fileInput.current.value = null;
+  }
+
   const BoardOptions = boardChoices.map((board, i) => <option value={board.value} key={i}>{board.name}</option>)
 
   return (
@@ -68,41 +73,51 @@ function App() {
         </svg>
         </span>}
         <h2 className="text-white text-2xl mt-6">{uploadStatusTitle}</h2>
-        <p className="text-white mt-2">{uploadStatusMsg}</p>
+        <p className="text-white mt-2 w-1/2 text-center">{uploadStatusMsg}</p>
         {uploadStatusMsg && <button className="bg-cyan-500 py-1.5 px-4 hover:bg-cyan-600 rounded-md text-white mt-6" onClick={clearStatus}>Close</button>}
       </div>}
       <form id="uploadForm" onSubmit={handleSubmit} className="flex flex-col w-4/5 sm:md-2/3 md:w-1/3 lg:w-1/4 m-auto h-full justify-center items-center gap-4">
         <h1 className="text-center text-white text-4xl mb-12 ">Arduino Web Flasher</h1>
         <div className="flex justify-center items-center w-full">
-          <label htmlFor="dropzone-file" className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-            <div className="flex flex-col justify-center items-center pt-5 pb-6">
-              <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Only .hex or .bin files</p>
+          <div className="flex flex-row justify-center items-center w-full h-64">
+            <label htmlFor="dropzone-file" className={fileName ? 'hidden' : "p-4 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"} >
+              <div className=" flex flex-col justify-center items-center pt-5 pb-6">
+                <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Only .hex or .bin files</p>
+              </div>
+              <input id="dropzone-file"
+                ref={fileInput}
+                type="file"
+                className="hidden"
+                onChange={() =>
+                  updateFileName(fileInput.current.files[0].name)
+                }
+                onClick={() => fileInput.current.click()}
+              />
+            </label>
+            {fileName &&
+            <div className="w-2/3 h-10 flex flex-row justify-between bg-gray-700 text-white m-2 rounded-md items-center">
+              <div className="ml-3">{fileName}</div>
+              <button type="button" onClick={clearFileInput} className="px-2 border-l border-gray-500 h-full hover:bg-gray-500 rounded-r-md">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
             </div>
-            <input id="dropzone-file"
-              ref={fileInput}
-              type="file"
-              className="hidden"
-              onChange={() =>
-                updateFileName(fileInput.current.files[0].name)
-              }
-              onClick={() => fileInput.current.click()}
-            />
-          </label>
+          }
+          </div>
         </div>
-        <div className="w-2/3">
+        <div className="w-2/3 ">
           <label htmlFor="board-select" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
           <select
             id="boardType"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-400 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={board}
             onChange={event => updateBoard(event.target.value)}
           >
             {BoardOptions}
           </select>
         </div>
-        <button type="submit" className="mt-4 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+        <button disabled={!fileName} type="submit" className="mt-4 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800 disabled:bg-gradient-to-br disabled:from-gray-500 disabled:to-gray-600 disabled:text-gray-500">
           <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
             Upload to Arduino
           </span>
