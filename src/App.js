@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import AvrgirlArduino from "avrgirl-arduino";
 
 function App() {
   const boardChoices = [{ name: "Arduino nano", value: "nano" }];
-
 
   const fileInput = useRef(null);
   const [board, updateBoard] = useState(boardChoices[0]);
@@ -11,7 +10,12 @@ function App() {
   const [uploadStatus, updateUploadStatus] = useState("");
   const [uploadStatusTitle, updateUploadStatusTitle] = useState("");
   const [uploadStatusMsg, updateUploadStatusMsg] = useState("");
+  const [browserSupported, updateBrowserSupported] = useState(true);
 
+
+  useEffect(() => {
+    updateBrowserSupported('serial' in navigator);
+  }, [])
 
 
 
@@ -64,8 +68,18 @@ function App() {
 
   const BoardOptions = boardChoices.map((board, i) => <option value={board.value} key={i}>{board.name}</option>)
 
+
   return (
     <div className="w-full h-screen bg-gray-900">
+      {!browserSupported && <div className="w-screen h-screen bg-opacity-90 fixed bg-gray-900 z-20 flex flex-col gap-2 justify-center items-center text-white text-lg text-center">
+        <h2 className="text-white text-4xl mb-6 font-bold">Browser is not supported😥</h2>
+          <p>Sorry, <b>Web Serial</b> is not supported on this browser.</p>
+          <p>If you are on computer, please use Chrome or Opera</p>
+					<p >If you are using Chrome, please make sure you're running Chrome 78 or later <br/> and have enabled the
+					<code>#enable-experimental-web-platform-features</code> flag in
+					<code>chrome://flags</code>.</p>
+					<p> Mobile browsers are also not supported, check <a className="underline text-blue-400" href="https://caniuse.com/web-serial">Can I Use WebSerial</a> for compatibility.</p> 
+      </div>}
       {uploadStatus && <div className="w-screen h-screen bg-opacity-90 fixed bg-gray-900 z-20 flex flex-col justify-center items-center">
         {uploadStatus === 'flashing' && <span className="loader"></span>}
         {uploadStatus === 'done' && <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-14 h-14 text-green-400">
@@ -100,7 +114,7 @@ function App() {
             <div className="w-2/3 h-10 flex flex-row justify-between bg-gray-700 text-white m-2 rounded-md items-center">
               <div className="ml-3">{fileName}</div>
               <button type="button" onClick={clearFileInput} className="px-2 border-l border-gray-500 h-full hover:bg-gray-500 rounded-r-md">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
           }
