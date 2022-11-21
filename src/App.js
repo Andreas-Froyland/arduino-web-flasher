@@ -93,11 +93,11 @@ function App() {
         <p className="text-white mt-2 w-1/2 text-center">{uploadStatusMsg}</p>
         {uploadStatusMsg && <button className="bg-cyan-500 py-1.5 px-4 hover:bg-cyan-600 rounded-md text-white mt-6" onClick={clearStatus}>Close</button>}
       </div>}
-      <form id="uploadForm" onSubmit={handleSubmit} className="flex flex-col w-4/5 sm:md-2/3 md:w-1/3 lg:w-1/4 m-auto h-full justify-center items-center gap-4">
+      <form id="uploadForm" onSubmit={handleSubmit} className="flex flex-col w-4/5 sm:md-2/3 md:w-1/3 lg:w-1/4 m-auto h-full justify-center items-center">
         <h1 className="text-center text-white text-4xl ">Arduino Web Flasher</h1>
         <div className="flex justify-center items-center w-full">
-          <div className="flex flex-row justify-center items-center w-full h-64">
-            <label htmlFor="dropzone-file" className={fileName ? 'hidden' : "p-4 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"} >
+          <div className="flex flex-row justify-center items-center w-full mt-16">
+            <label htmlFor="dropzone-file" className={fileName ? 'hidden' : "relative p-4 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"} >
               <div className=" flex flex-col justify-center items-center pt-5 pb-6">
                 <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                 <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
@@ -123,6 +123,7 @@ function App() {
           }
           </div>
         </div>
+        <span className="text-gray-500 text-center w-1/2 text-xs mt-1">Wondering how to get hex/bin files from the sketch? <a className="underline" href="https://randomnerdtutorials.com/bin-binary-files-sketch-arduino-ide/">Click here</a></span>
         <div className="w-2/3 ">
           <label htmlFor="board-select" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
           <select
