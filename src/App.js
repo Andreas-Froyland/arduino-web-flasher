@@ -79,6 +79,9 @@ function App() {
 					<code>#enable-experimental-web-platform-features</code> flag in
 					<code>chrome://flags</code>.</p>
 					<p> Mobile browsers are also not supported, check <a className="underline text-blue-400" href="https://caniuse.com/web-serial">Can I Use WebSerial</a> for compatibility.</p> 
+          <br/>
+          <p> Check out the <a className="underline text-blue-400" href="https://github.com/andreasNordstrand/arduino-web-flasher"> GitHub repo</a> for more information.</p> 
+
       </div>}
       {uploadStatus && <div className="w-screen h-screen bg-opacity-90 fixed bg-gray-900 z-20 flex flex-col justify-center items-center">
         {uploadStatus === 'flashing' && <span className="loader"></span>}
@@ -91,7 +94,7 @@ function App() {
         {uploadStatusMsg && <button className="bg-cyan-500 py-1.5 px-4 hover:bg-cyan-600 rounded-md text-white mt-6" onClick={clearStatus}>Close</button>}
       </div>}
       <form id="uploadForm" onSubmit={handleSubmit} className="flex flex-col w-4/5 sm:md-2/3 md:w-1/3 lg:w-1/4 m-auto h-full justify-center items-center gap-4">
-        <h1 className="text-center text-white text-4xl mb-12 ">Arduino Web Flasher</h1>
+        <h1 className="text-center text-white text-4xl ">Arduino Web Flasher</h1>
         <div className="flex justify-center items-center w-full">
           <div className="flex flex-row justify-center items-center w-full h-64">
             <label htmlFor="dropzone-file" className={fileName ? 'hidden' : "p-4 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"} >
@@ -137,6 +140,10 @@ function App() {
           </span>
         </button>
       </form>
+      <footer className="absolute bottom-2 text-white left-1/2 transform -translate-x-1/2 flex flex-col text-xs justify-center text-center">
+        <span className="p-2">Built on <a className="underline text-blue-400" href="https://github.com/noopkat/avrgirl-arduino">avrgirl-arduino</a></span>
+        <span>Any issues? Please report them <a className="underline text-blue-400" href="https://github.com/andreasNordstrand/arduino-web-flasher">here</a></span>
+      </footer>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 {
-  "short_name": "AvrGirl Arduino React Demo",
-  "name": "AvrGirl Arduino Web Serial React Demo",
+  "short_name": "Arduino Web Flasher",
+  "name": "Arduino Web Flasher - Upload arduino sketches online",
   "icons": [
     {
       "src": "favicon.ico",
