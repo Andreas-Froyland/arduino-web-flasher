@@ -23,8 +23,8 @@ The fastest way is to check out the link:
 If you want to run it by yourself, git clone this repository and run the app locally.
 
 1. Install NodeJS
-2. In your terminal, run `git clone https://github.com/noopkat/avrgirl-arduino`
-3. Run `cd avrgirl-arduino/tests/demos/webserial/react-demo`
+2. In your terminal, run `git clone https://github.com/andreasNordstrand/arduino-web-flasher`
+3. Run `cd arduino-web-flasher`
 4. Run `npm install`
 5. Run `npm start`. Open `http://localhost:3000` in Chrome to play with the app.
 
