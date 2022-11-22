@@ -2,7 +2,27 @@ import React, { useState, useRef, useEffect } from "react";
 import AvrgirlArduino from "avrgirl-arduino";
 
 function App() {
-  const boardChoices = [{ name: "Arduino nano", value: "nano" }];
+  const boardChoices = [ //Testing values: working | notTested | notWorking
+    { name: "Arduino Uno",                        value: "uno",                        tested: false },
+    { name: "Arduino Mega",                       value: "mega",                       tested: false },
+    { name: "Arduino ADK",                        value: "adk",                        tested: false },
+    { name: "Arduino Nano",                       value: "nano",                       tested: true },
+    { name: "Arduino Nano (with new bootloader)", value: "nano (new bootloader)",      tested: false },
+    { name: "Arduino Lilypad USB",                value: "lilypad-usb",                tested: false },
+    { name: "Arduino Yun",                        value: "yun",                        tested: false },
+    { name: "Arduino Esplora",                    value: "esplora",                    tested: false },
+    { name: "Tiny Circuits Tinyduino",            value: "tinyduino",                  tested: false },
+    { name: "SparkFun Pro Micro	",                value: "sf-pro-micro",               tested: false },
+    { name: "Qtechknow Qduino",                   value: "qduino",                     tested: false },
+    { name: "Pinoccio Scout",                     value: "pinoccio",                   tested: false },
+    { name: "Femtoduino IMUduino",                value: "imuduino",                   tested: false },
+    { name: "Adafruit Feather 32u4 Basic Proto",  value: "feather",                    tested: false },
+    { name: "Adafruit Circuit Playground",        value: "circuit-playground-classic", tested: false },
+    { name: "BQ ZUM",                             value: "bqZum",                      tested: false },
+    { name: "BQ ZUM Core 2",                      value: "zumcore2",                   tested: false },
+    { name: "BQ ZUM Junior	",                    value: "zumjunior",                  tested: false },
+
+  ];
 
   const fileInput = useRef(null);
   const [board, updateBoard] = useState(boardChoices[0]);
@@ -11,6 +31,8 @@ function App() {
   const [uploadStatusTitle, updateUploadStatusTitle] = useState("");
   const [uploadStatusMsg, updateUploadStatusMsg] = useState("");
   const [browserSupported, updateBrowserSupported] = useState(true);
+  const [infoBoardSelectHover, setInfoBoardSelectHover] = useState(false);
+
 
 
   useEffect(() => {
@@ -63,24 +85,24 @@ function App() {
 
   const clearFileInput = () => {
     updateFileName("");
-    if(fileInput) fileInput.current.value = null;
+    if (fileInput) fileInput.current.value = null;
   }
 
-  const BoardOptions = boardChoices.map((board, i) => <option value={board.value} key={i}>{board.name}</option>)
+  const BoardOptions = boardChoices.map((board, i) => <option value={board.value} key={i}>{board.name} {board.tested ? '✅' : ''}</option>)
 
 
   return (
     <div className="w-full h-screen bg-gray-900">
       {!browserSupported && <div className="w-screen h-screen bg-opacity-90 fixed bg-gray-900 z-20 flex flex-col gap-2 justify-center items-center text-white text-lg text-center">
         <h2 className="text-white text-4xl mb-6 font-bold">Browser is not supported😥</h2>
-          <p>Sorry, <b>Web Serial</b> is not supported on this browser.</p>
-          <p>If you are on computer, please use Chrome or Opera</p>
-					<p >If you are using Chrome, please make sure you're running Chrome 78 or later <br/> and have enabled the
-					<code>#enable-experimental-web-platform-features</code> flag in
-					<code>chrome://flags</code>.</p>
-					<p> Mobile browsers are also not supported, check <a className="underline text-blue-400" href="https://caniuse.com/web-serial">Can I Use WebSerial</a> for compatibility.</p> 
-          <br/>
-          <p> Check out the <a className="underline text-blue-400" href="https://github.com/andreasNordstrand/arduino-web-flasher"> GitHub repo</a> for more information.</p> 
+        <p>Sorry, <b>Web Serial</b> is not supported on this browser.</p>
+        <p>If you are on computer, please use Chrome or Opera</p>
+        <p >If you are using Chrome, please make sure you're running Chrome 78 or later <br /> and have enabled the
+          <code>#enable-experimental-web-platform-features</code> flag in
+          <code>chrome://flags</code>.</p>
+        <p> Mobile browsers are also not supported, check <a className="underline text-blue-400" href="https://caniuse.com/web-serial">Can I Use WebSerial</a> for compatibility.</p>
+        <br />
+        <p> Check out the <a className="underline text-blue-400" href="https://github.com/andreasNordstrand/arduino-web-flasher"> GitHub repo</a> for more information.</p>
 
       </div>}
       {uploadStatus && <div className="w-screen h-screen bg-opacity-90 fixed bg-gray-900 z-20 flex flex-col justify-center items-center">
@@ -114,18 +136,36 @@ function App() {
               />
             </label>
             {fileName &&
-            <div className="w-2/3 h-10 flex flex-row justify-between bg-gray-700 text-white m-2 rounded-md items-center">
-              <div className="ml-3">{fileName}</div>
-              <button type="button" onClick={clearFileInput} className="px-2 border-l border-gray-500 h-full hover:bg-gray-500 rounded-r-md">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-              </button>
-            </div>
-          }
+              <div className="w-2/3 h-10 flex flex-row justify-between bg-gray-700 text-white m-2 rounded-md items-center">
+                <div className="ml-3">{fileName}</div>
+                <button type="button" onClick={clearFileInput} className="px-2 border-l border-gray-500 h-full hover:bg-gray-500 rounded-r-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+            }
           </div>
         </div>
         <span className="text-gray-500 text-center w-1/2 text-xs mt-1">Wondering how to get hex/bin files from the sketch? <a className="underline" href="https://randomnerdtutorials.com/bin-binary-files-sketch-arduino-ide/">Click here</a></span>
-        <div className="w-2/3 ">
-          <label htmlFor="board-select" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
+        <div className="w-2/3">
+          <div className="flex flex-row justify-between relative">
+            <label htmlFor="board-select" className="block mb-2 mt-8 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
+            <button
+              type="button"
+              className="mt-6"
+              onMouseEnter={() => setInfoBoardSelectHover(true)}
+              onMouseLeave={() => setInfoBoardSelectHover(false)}
+            >
+              <i className="text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+              </i>
+            </button>
+            {infoBoardSelectHover && <span htmlFor="board-select" className="text-center w-3/4 text-xs text-gray-200 p-2 bg-gray-800 absolute right-10 rounded-lg transition-all opacity-90">Boards with checkmark✅ have been verified by the community. Not guaranteed to work on all boards</span>}
+
+          </div>
+
+
           <select
             id="boardType"
             className="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg hover:border-gray-400 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -141,7 +181,7 @@ function App() {
           </span>
         </button>
       </form>
-      <footer className="absolute bottom-2 text-white left-1/2 transform -translate-x-1/2 flex flex-col text-xs justify-center text-center">
+      <footer className="absolute bottom-2 text-gray-500 left-1/2 transform -translate-x-1/2 flex flex-col text-xs justify-center text-center">
         <span className="p-2">Built on <a className="underline text-blue-400" href="https://github.com/noopkat/avrgirl-arduino">avrgirl-arduino</a></span>
         <span>Any issues? Please report them <a className="underline text-blue-400" href="https://github.com/andreasNordstrand/arduino-web-flasher">here</a></span>
       </footer>
