@@ -6,7 +6,7 @@ function App() {
     { name: "Arduino Uno",                        value: "uno",                        tested: false },
     { name: "Arduino Mega",                       value: "mega",                       tested: false },
     { name: "Arduino ADK",                        value: "adk",                        tested: false },
-    { name: "Arduino Nano",                       value: "nano",                       tested: true },
+    { name: "Arduino Nano",                       value: "nano",                       tested: true  },
     { name: "Arduino Nano (with new bootloader)", value: "nano (new bootloader)",      tested: false },
     { name: "Arduino Lilypad USB",                value: "lilypad-usb",                tested: false },
     { name: "Arduino Yun",                        value: "yun",                        tested: false },
@@ -48,21 +48,18 @@ function App() {
 
 
     const reader = new FileReader();
-    console.log(fileInput.current.files[0])
     reader.readAsArrayBuffer(fileInput.current.files[0]);
 
     reader.onload = event => {
       const filecontents = event.target.result;
-
+      
       const avrgirl = new AvrgirlArduino({
-        board: board.value,
+        board: board,
         debug: true
       });
 
       avrgirl.flash(filecontents, error => {
         if (error) {
-          console.log(error.message);
-          console.log(typeof error)
           updateUploadStatus("error");
           updateUploadStatusTitle("Error Flashing Arduino!");
           updateUploadStatusMsg(error.message)
@@ -156,8 +153,8 @@ function App() {
               onMouseLeave={() => setInfoBoardSelectHover(false)}
             >
               <i className="text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                 </svg>
               </i>
             </button>
