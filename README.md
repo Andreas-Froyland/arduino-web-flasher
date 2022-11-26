@@ -1,5 +1,7 @@
 # Arduino Web Flasher
 
+https://arduino-web-flasher.onrender.com/
+
 Arduino Web Flasher is a tool for flashing arduino boards with a binary file through the browser.
 
 I made the tool to enable uploading of sketches to the arduino a much simpler process for clients and users. By uploading the binary directly, users don't need to download Arduino IDE, make sure they have the correct libraries installed, compile to the correct board with the correct settings etc...
@@ -18,7 +20,7 @@ It utilizes tailwindcss for styling
 
 ## How to run
 
-The fastest way is to check out the link: 
+The fastest way is to check out the link: https://arduino-web-flasher.onrender.com/
 
 If you want to run it by yourself, git clone this repository and run the app locally.
 
