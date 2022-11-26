@@ -25,7 +25,7 @@ function App() {
   ];
 
   const fileInput = useRef(null);
-  const [board, updateBoard] = useState(boardChoices[0]);
+  const [board, updateBoard] = useState(boardChoices[0].value);
   const [fileName, updateFileName] = useState("");
   const [uploadStatus, updateUploadStatus] = useState("");
   const [uploadStatusTitle, updateUploadStatusTitle] = useState("");
